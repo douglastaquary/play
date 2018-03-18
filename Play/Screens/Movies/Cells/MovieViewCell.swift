@@ -22,9 +22,10 @@ final class MovieViewCell: UICollectionViewCell, NibReusable {
     }
     
     
-    func setup(item: MovieModel) {
+    func setup(item: Movie) {
         titleLabel.text = item.title
         posterImage.download(image: "\(ImageBasePath.url)\(item.posterPath)")
+        item.posterImage = posterImage.image
 
     }
     

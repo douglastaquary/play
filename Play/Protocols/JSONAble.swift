@@ -1,5 +1,5 @@
 //
-//  ResponseListProtocol.swift
+//  JSONAbleType.swift
 //  Play
 //
 //  Created by douglas taquary on 17/03/2018.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol ResponseListModel {
-    var movies: [Movie] { get }
+protocol JSONAbleType {
+    static func fromJSON(_: [String: Any]) -> Self
 }

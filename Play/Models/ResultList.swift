@@ -7,17 +7,23 @@
 //
 
 import Foundation
+import SwiftyJSON
 
-struct ResultList: ResponseListModel, Codable {
-    var movies: [Movie]
-
-    enum CodingKeys: String, CodingKey {
-        case movies = "results"
-    }
+final public class ResultList: NSObject, JSONAbleType {
     
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        movies = try values.decode([Movie].self, forKey: .movies)
+    var movies: [Movie]?
+    
+    override init() {}
+    
+    public static func fromJSON(_ json: [String : Any]) -> ResultList {
+        let json = JSON(json)
+        
+        let result = ResultList()
+        
+        if let moviesDict = json["results"].object as? [[String: AnyObject]] {
+            result.movies = moviesDict.map { Movie.fromJSON($0)}
+        }
+        
+        return result
     }
 }
-

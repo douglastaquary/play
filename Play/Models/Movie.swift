@@ -7,36 +7,41 @@
 //
 
 import Foundation
+import SwiftyJSON
 
-struct Movie: MovieModel, Codable {
+final public class Movie: NSObject, JSONAbleType {
+
     var id: Int
     var mediaType: String
     var voteCount: Int
     var title: String
     var posterPath: String
     var overview: String
-   // var releaseDate: Date
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case mediaType = "media_type"
-        case voteCount = "vote_count"
-        case title
-        case posterPath = "poster_path"
-        case overview
-       // case releaseDate = "release_date"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(Int.self, forKey: .id)
-        mediaType = try values.decode(String.self, forKey: .mediaType)
-        voteCount = try values.decode(Int.self, forKey: .voteCount)
-        title = try values.decode(String.self, forKey: .title)
-        posterPath = try values.decode(String.self, forKey: .posterPath)
-        overview = try values.decode(String.self, forKey: .posterPath)
- //       let rawDate = try values.decode(String.self, forKey: .releaseDate)
- 
+    var posterImage: UIImage?
+    // var releaseDate: Date
 
+    init(id: Int, mediaType: String, voteCount: Int, title: String, posterPath: String, overview: String) {
+        self.id = id
+        self.mediaType = mediaType
+        self.voteCount = voteCount
+        self.title = title
+        self.posterPath = posterPath
+        self.overview = overview
+    }
+
+    public static func fromJSON(_ json: [String : Any]) -> Movie {
+        let json = JSON(json)
+
+        let id = json["id"].intValue
+        let mediaType = json["media_type"].stringValue
+        let voteCount = json["vote_count"].intValue
+        let title = json["title"].stringValue
+        let posterPath = json["poster_path"].stringValue
+        let overview = json["overview"].stringValue
+
+        let movie = Movie(id: id, mediaType: mediaType, voteCount: voteCount, title: title, posterPath: posterPath, overview: overview)
+
+        return movie
     }
 }
+
