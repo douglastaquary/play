@@ -7,27 +7,34 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol MoviesViewModelType {
-    var movies: [MovieModel] { get }
+    var movies: [Movie] { get }
+    func fetchMovies() -> Observable<Void>
 }
 
-
-class MoviesViewModel: MoviesViewModelType {
+class MoviesViewModel: MoviesViewModelType, PlayRepository {
+    let apiKey = "9db1dc074343b805789ec4d8859bcef9"
+    let provider: Networking = Networking.newDefaultNetworking()
     
-    let playService: PlayService = PlayService()
-    var currentMovies: [MovieModel] = []
-    var movies: [MovieModel] {
-        return currentMovies
+    fileprivate var currentMovies = Variable<Array<Movie>>([])
+    
+    var movies: [Movie] {
+        return currentMovies.value
     }
     
-    init() {
-        getMovies()
-    }
+    init() {}
     
-    fileprivate func getMovies() {
-        playService.fetchMovies { movies in
-            self.currentMovies = movies ?? []
-        }
+    func fetchMovies() -> Observable<Void> {
+        let endpoint: PlayAPI = PlayAPI.list(apiKey: apiKey, sort_by:"vote_average.asc")
+        
+        return provider.request(endpoint)
+            .filterSuccessfulStatusCodes()
+            .mapJSON()
+            .mapTo(object: ResultList.self)
+            .map { result in
+                self.currentMovies.value = result.movies ?? []
+            }.map(void)
     }
 }

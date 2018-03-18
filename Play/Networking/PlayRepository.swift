@@ -7,8 +7,8 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol PlayRepository {
-    func fetchMovies(_ completion: @escaping (_ results: [MovieModel]?) -> Void)
-    func movieDetail(_ withId: Int, completion: @escaping (_ movie: MovieModel?) -> Void)
+    func fetchMovies() -> Observable<Void>
 }

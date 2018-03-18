@@ -7,8 +7,6 @@
 //
 
 import Foundation
-
-import Foundation
 import UIKit
 
 protocol StoryboardSceneType {
@@ -45,8 +43,7 @@ extension UIViewController {
     }
 }
 
-// swiftlint:disable file_length
-// swiftlint:disable type_body_length
+
 struct Storyboard {
     
     enum LaunchScreen: StoryboardSceneType {
