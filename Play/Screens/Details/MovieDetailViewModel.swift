@@ -45,7 +45,7 @@ extension MovieDetailViewModel {
                                    font: UIFont.systemFont(ofSize: 15),
                                    color: UIColor.orange)
         
-        cancelButtonText = NSAttributedString(string: "Cancelar",//Localization.cancelButton,
+        cancelButtonText = NSAttributedString(string: "Cancelar",
                                               font: UIFont.systemFont(ofSize: 13),
                                               color: UIColor.lightGray)
         

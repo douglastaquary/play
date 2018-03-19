@@ -13,9 +13,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    let defaults = UserDefaults.standard
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        var appToken = AppToken(defaults: defaults)
+        appToken.apiKey = "9db1dc074343b805789ec4d8859bcef9"
+        appToken.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZGIxZGMwNzQzNDNiODA1Nzg5ZWM0ZDg4NTliY2VmOSIsInN1YiI6IjVhYWM4M2IyYzNhMzY4NDZlNDAwOTdmOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nMaXy3X7NUBbQJSu_fE7KLXR5eZHeeppnp8KRbru9iw"
         
         Apperance.customizeNavigationBar()
         
