@@ -1,4 +1,4 @@
-ruby '2.3.1'
+ruby '2.4.2'
 
 source "https://rubygems.org"
 
@@ -6,6 +6,6 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 # gem "rails"
 
-gem "cocoapods", "1.3.1"
+gem 'cocoapods', '~>1.4'
 gem "fastlane"
 gem 'slather'
