@@ -14,30 +14,27 @@ import Nimble_Snapshots
 
 class MovieDetailViewControllerTests: QuickSpec {
     
-    var viewController: MovieDetailViewController!
-    let snapshotService = SnapshotService()
-    var window: UIWindow!
-    
     override func spec() {
+        var controller: MovieDetailViewController!
+        //let snapshotService = SnapshotService()
+        
         let movie = Movie(id: 2, mediaType: "Madmax", voteCount: 13, title: "name", posterPath: "/path", overview: "Description")
         movie.posterImage = UIImage(named: "madmax")
         
-        describe("MovieDetailViewController Layout") {
+        describe("MovieDetailViewController") {
             beforeEach {
-                
-                self.viewController = MovieDetailViewController(with: movie)
-
-                let frame = UIScreen.main.bounds
-                let window = UIWindow(frame: frame)
-                window.rootViewController = self.viewController
-                window.makeKeyAndVisible()
-                self.window = window
-                self.viewController.view.frame = frame
+                let movie = Movie(id: 2, mediaType: "Madmax", voteCount: 13, title: "name", posterPath: "/path", overview: "Description")
+                controller = MovieDetailViewController(with: movie)
             }
             
-//            it("should have the correct portrait layout on all Sizes") {
-//               expect(self.viewController.view).to(self.snapshotService.haveSnapshot())
-//            }
+            it("should be able to create a controller") {
+               expect(controller).toNot(beNil())
+            }
+            
+            it("should have a view of type"){
+                controller.viewWillAppear(true)
+                expect(controller.view).to(beAKindOf(MovieDetailView.self))
+            }
         }
     }
 }

@@ -8,8 +8,8 @@
 
 import Foundation
 import RxSwift
-@testable import Play
 
+@testable import Play
 
 class PlayRepositoryMock: PlayRepository {
     

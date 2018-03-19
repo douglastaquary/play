@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 
-protocol MovieDelegate {
+protocol MoviesViewControllerDelegate {
     func didSelectMovie(at index: IndexPath)
 }
 
@@ -21,11 +21,10 @@ class MoviesViewController: UIViewController {
     var movies: [Movie] = []
     
     let modalTransitionController = ModalTransition()
-    
     let disposeBagUI = DisposeBag()
+    
     public var isLoading = true {
         didSet {
-            loadingAcitivity.startAnimating()
             collectionView.isUserInteractionEnabled = !isLoading
             collectionView.reloadData()
         }
@@ -36,15 +35,8 @@ class MoviesViewController: UIViewController {
             collectionView.reloadData()
         }
     }
-
 }
 
-extension MoviesViewController {
-    func setupCollectionView(with movies: [Movie]){
-        self.movies = movies
-        collectionView.reloadData()
-    }
-}
 
 extension MoviesViewController {
     override func viewDidLoad() {
@@ -55,57 +47,65 @@ extension MoviesViewController {
         collectionView.backgroundColor = .black
         collectionView.register(cellType: MovieViewCell.self)
         
+        loadingAcitivity.startAnimating()
+        
         viewModel.fetchMovies().asObservable()
             .subscribe(onNext: {[weak self] _ in
                 guard let me = self else { return }
                 
-                me.loadingAcitivity.isHidden = me.isLoading
+                me.loadingAcitivity.isHidden = true
                 me.setupCollectionView(with: me.viewModel.movies)
                 
             }, onError: { error in
                 self.loadingAcitivity.isHidden = self.isLoading
-                print("Mostrar um ALERTA")
+                self.showAlertMessage(title: "Ops, algo deu errado 🤔", message: "Não conseguimos carregar os filmes!\nTente novamente.", completion: { _ in self.findNewMovies() })
             })
             .addDisposableTo(disposeBagUI)
     }
 }
 
 extension MoviesViewController {
-    func didSelectMovie(at index: IndexPath) {
-        let movie = movies[index.row]
-        let movieDetailViewController = MovieDetailViewController(with: movie)
-        movieDetailViewController.delegate = self
-        movieDetailViewController.modalPresentationStyle = .custom
-        movieDetailViewController.transitioningDelegate = modalTransitionController
+    func setupCollectionView(with movies: [Movie]){
+        self.movies = movies
+        collectionView.reloadData()
+    }
+}
 
-        self.navigationController?.present(movieDetailViewController,
-                                          animated: true)
+extension MoviesViewController {
+    func findNewMovies()  {
+        loadingAcitivity.isHidden = false
+        loadingAcitivity.startAnimating()
+        
+        viewModel.fetchMovies().asObservable().subscribe(
+            onNext: { [weak self] _ in
+                guard let me = self else { return }
+                me.loadingAcitivity.isHidden = true
+                me.setupCollectionView(with: me.viewModel.movies)
+                
+            }, onError: { error in
+                self.loadingAcitivity.isHidden = true
+                self.showAlertMessage(title: "Ops, algo deu errado 🤔", message: "Não conseguimos carregar os filmes!\nTente novamente.", completion: { _ in self.findNewMovies() })
+            })
+            .addDisposableTo(disposeBagUI)
     }
 }
 
 
 extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return movies.count
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //var cell: UICollectionViewCell!
-        
         let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: MovieViewCell.self)
         let item = movies[indexPath.row]
         cell.setup(item: item)
         
         return cell
-
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -125,6 +125,19 @@ extension MoviesViewController: MovieDetailViewControllerDelegate {
         viewController.dismiss(animated: true, completion: nil)
     }
       
+}
+
+extension MoviesViewController: MoviesViewControllerDelegate {
+    func didSelectMovie(at index: IndexPath) {
+        let movie = movies[index.row]
+        let movieDetailViewController = MovieDetailViewController(with: movie)
+        movieDetailViewController.delegate = self
+        movieDetailViewController.modalPresentationStyle = .custom
+        movieDetailViewController.transitioningDelegate = modalTransitionController
+        
+        self.navigationController?.present(movieDetailViewController,
+                                           animated: true)
+    }
 }
 
 

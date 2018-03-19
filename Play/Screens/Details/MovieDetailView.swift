@@ -131,11 +131,12 @@ public class MovieDetailView: UIView {
         topBar.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         topBar.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         topBar.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        topBar.heightAnchor.constraint(equalToConstant: 68).isActive = true
+        topBar.heightAnchor.constraint(equalToConstant: grid*8).isActive = true
         posterImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height/2).isActive = true
         
         let stackView = UIStackView()
         stackView.axis = .vertical
+        stackView.spacing = -grid*5
         stackView.addArrangedSubview(posterImageView)
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(overviewLabel)
@@ -146,7 +147,7 @@ public class MovieDetailView: UIView {
         stackView.topAnchor.constraint(equalTo: topBar.bottomAnchor).isActive = true
         stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: grid).isActive = true
         stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -grid).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: grid*2).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: grid*4).isActive = true
         
     }
     
