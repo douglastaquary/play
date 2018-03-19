@@ -16,8 +16,7 @@ class MovieDetailViewControllerTests: QuickSpec {
     
     override func spec() {
         var controller: MovieDetailViewController!
-        //let snapshotService = SnapshotService()
-        
+
         let movie = Movie(id: 2, mediaType: "Madmax", voteCount: 13, title: "name", posterPath: "/path", overview: "Description")
         movie.posterImage = UIImage(named: "madmax")
         
