@@ -9,6 +9,7 @@ cache:
 - cocoapods
 
 before_install:
+- bundle update
 - bundle install
 - pod repo update
 
