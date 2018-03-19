@@ -10,7 +10,6 @@ import Quick
 import Nimble
 import Nimble_Snapshots
 import RxSwift
-import RxNimble
 
 @testable import Play
 
@@ -86,9 +85,9 @@ class MoviesViewControllerTests: QuickSpec {
                     }.toNot(throwAssertion())
                 }
             }
-
         }
     }
+    
     
 }
     

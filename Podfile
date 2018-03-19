@@ -9,7 +9,6 @@ target 'Play' do
     pod 'RxSwift', '~> 3.5.0'
     pod 'RxCocoa', '~> 3.5.0'
     pod 'Moya/RxSwift', :git => 'https://github.com/Moya/Moya.git', :tag => '8.0.5'
-    pod 'ReachabilitySwift'
     pod 'SwiftyJSON'
     
     target 'PlayTests' do
@@ -19,7 +18,6 @@ target 'Play' do
         pod 'Nimble'
         pod 'Quick'
         pod 'Nimble-Snapshots'
-        pod 'RxNimble'
     end
 end
 

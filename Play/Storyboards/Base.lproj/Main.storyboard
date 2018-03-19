@@ -67,21 +67,6 @@
             </objects>
             <point key="canvasLocation" x="476" y="132.68365817091455"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="gfc-9T-VqZ">
-            <objects>
-                <viewController storyboardIdentifier="MovieDetailViewController" id="wdf-U2-FV2" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QSi-Yc-td1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="7hu-eb-c85"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ssi-PW-a7H" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1350" y="133"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Fxk-ej-DZA">
             <objects>

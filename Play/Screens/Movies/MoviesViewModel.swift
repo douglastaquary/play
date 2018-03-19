@@ -15,11 +15,9 @@ protocol MoviesViewModelType {
 }
 
 class MoviesViewModel: MoviesViewModelType, PlayRepository {
-    let apiKey = "9db1dc074343b805789ec4d8859bcef9"
+    
     let provider: Networking = Networking.newDefaultNetworking()
-    
     fileprivate var currentMovies = Variable<Array<Movie>>([])
-    
     var movies: [Movie] {
         return currentMovies.value
     }
@@ -27,7 +25,7 @@ class MoviesViewModel: MoviesViewModelType, PlayRepository {
     init() {}
     
     func fetchMovies() -> Observable<Void> {
-        let endpoint: PlayAPI = PlayAPI.list(apiKey: apiKey, sort_by:"vote_average.asc")
+        let endpoint: PlayAPI = PlayAPI.list(apiKey: AppToken().apiKey ?? "", sort_by: "vote_average.asc")
         
         return provider.request(endpoint)
             .filterSuccessfulStatusCodes()

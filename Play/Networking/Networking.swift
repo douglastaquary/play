@@ -48,9 +48,7 @@ extension NetworkingType {
         return { target in
             var endpoint: Endpoint<T> = Endpoint<T>(url: url(target), sampleResponseClosure: {.networkResponse(200, target.sampleData)}, method: target.method, parameters: target.parameters, parameterEncoding: target.parameterEncoding)
 
-            let tokenAPI: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZGIxZGMwNzQzNDNiODA1Nzg5ZWM0ZDg4NTliY2VmOSIsInN1YiI6IjVhYWM4M2IyYzNhMzY4NDZlNDAwOTdmOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nMaXy3X7NUBbQJSu_fE7KLXR5eZHeeppnp8KRbru9iw"
-            
-            endpoint = endpoint.adding(newHTTPHeaderFields: ["Authorization": "Bearer \(tokenAPI)"])
+            endpoint = endpoint.adding(newHTTPHeaderFields: ["Authorization": "Bearer \(AppToken().token ?? "")"])
 
             
             return endpoint
