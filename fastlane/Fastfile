@@ -19,7 +19,7 @@ platform :ios do
 
   desc "Runs all the tests"
   lane :test do
-     scan(scheme: "Play")
+     scan
     slather(
       output_directory: "coverage",
       workspace: "Play.xcworkspace",
