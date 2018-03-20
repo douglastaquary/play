@@ -12,3 +12,5 @@ gem 'danger-slather', '~>0.0.6'
 gem 'danger-xcode_summary', '~>0.4'
 gem "fastlane"
 gem 'slather'
+gem 'xcpretty-json-formatter', '~>0.1'
+gem 'xcpretty-travis-formatter', '~>0.0.4'
