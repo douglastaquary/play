@@ -21,9 +21,16 @@ if github.pr_body.length < 5
   fail 'Please provide a summary in the Pull Request description'
 end
 
+# Xcode
+build_file = File.expand_path 'result.json'
+xcode_summary.report build_file
+
+# Ignoring warnings from Pods
+xcode_summary.ignored_files = 'Pods/**'
+
 
 slather.configure('Play.xcodeproj', 'Play', options: { workspace: 'Play.xcworkspace' })
-slather.notify_if_coverage_is_less_than(minimum_coverage: 45, notify_level: :warning)
+slather.notify_if_coverage_is_less_than(minimum_coverage: 80, notify_level: :warning)
 slather.notify_if_modified_file_is_less_than(minimum_coverage: 50, notify_level: :warning)
 slather.show_modified_files_coverage
 

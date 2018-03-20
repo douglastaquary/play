@@ -1,23 +1,34 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
+require 'yaml'
 
 default_platform(:ios)
 
-platform :ios do
-  desc "Description of what the lane does"
-  lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions
-  end
+lane :oss_keys do
+  keys = ['PlayAPIToken',
+    'PlayAPIKey']
 
-  desc "Runs all the tests"
+  commands = keys.map { |key|
+    command = "bundle exec pod keys set #{key} '-' Play"
+
+    command
+  }.join(' ; ')
+
+  sh "cd .. ; #{commands}"
+end
+
+desc "Set all the API keys required for run"
+lane :oss do
+  oss_keys
+
+  cocoapods
+end
+
+desc "Increment major version"
+lane :major do 
+ version_number = update_version_number_and_commit(bump_type:"major")
+ version_number
+end
+
+  desc "Runs all the tests on an iPhone"
   lane :test do
      scan(scheme: "Play")
     slather(
@@ -34,5 +45,55 @@ platform :ios do
         "**/UIImageView+Kingfisher.swift"	
       ]
     )
+  end
+
+desc "Release a new beta version on Hockey"
+desc "This action does the following:"
+desc ""
+desc "- Verifies API keys are non-empty"
+desc "- Ensures a clean git status"
+desc "- Increment the build number"
+desc "- Commit and push the version bump"
+lane :deploy do |options|
+
+  version = options[:version]
+  raise "You must specify a version in A.B.X format to deploy." if version.nil? || version.scan(/\d+\.\d+\.\d+/).length == 0
+
+
+  # Generate release notes from CHANGELOG
+  changelog_filename = '../CHANGELOG.yml'
+  changelog_yaml = YAML.load_file(changelog_filename)
+  release_notes = changelog_yaml['upcoming'].map{ |note| note.prepend '- ' }.join("\n")
+
+  # Increment to the specified version number
+  major
+
+
+  # Add a changelog entry for this version
+  changelog_contents = File.read(changelog_filename)
+  existing_releases = changelog_contents.split('releases:').last
+  this_release = changelog_yaml['upcoming'].map{ |note| note.prepend '  ' }.join("\n")
+  changelog_contents = <<-EOS
+upcoming:
+releases:
+- version: #{version}
+  date: #{Time.new.strftime("%B %d %Y")}
+  notes:
+#{this_release}
+#{existing_releases}
+EOS
+
+  File.open(changelog_filename, 'w') { |file| file.puts changelog_contents }
+
+  # Tag release and push to GitHub
+  sh "git add .. ; git commit -m 'Deploying version #{version}.'" # Can't use commit_version_bump to include changelog changes
+  add_git_tag tag: version
+  push_to_git_remote
+end
+
+  error do |lane, exception|
+  if lane == :deploy
+    puts "Unable to deploy, removing build artefacts."
+    clean_build_artifacts
   end
 end
