@@ -10,6 +10,7 @@ target 'Play' do
     pod 'RxCocoa', '~> 3.5.0'
     pod 'Moya/RxSwift', :git => 'https://github.com/Moya/Moya.git', :tag => '8.0.5'
     pod 'SwiftyJSON'
+    pod 'YoutubeSourceParserKit'
     
     target 'PlayTests' do
         inherit! :search_paths
