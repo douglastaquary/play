@@ -162,7 +162,7 @@ public class MovieDetailView: UIView {
         cancelButton.setAttributedTitle(viewModel.cancelButtonText,
                                         for: .normal)
         posterImageView.layer.cornerRadius = 5
-        posterImageView.image = viewModel.image.image
+        posterImageView.download(image: viewModel.imagePath)
         nameLabel.attributedText = viewModel.nameMovie
         overviewLabel.attributedText = viewModel.overview
         

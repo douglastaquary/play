@@ -11,8 +11,8 @@ import RxSwift
 
 public protocol MovieDetailViewModelType {
     var title: NSAttributedString { get }
-    var image: UIImageView { get }
     var nameMovie: NSAttributedString { get }
+    var imagePath: String { get }
     var overview: NSAttributedString { get }
     var cancelButtonText: NSAttributedString { get }
     var didTapCancel: () -> Void { get }
@@ -20,7 +20,7 @@ public protocol MovieDetailViewModelType {
 }
 
 public struct MovieDetailViewModel: MovieDetailViewModelType {
-    public let image: UIImageView
+    public let imagePath: String
     public let nameMovie: NSAttributedString
     public let overview: NSAttributedString
     public let title: NSAttributedString
@@ -33,7 +33,7 @@ public struct MovieDetailViewModel: MovieDetailViewModelType {
 extension MovieDetailViewModel {
     
     public init() {
-        let movie = Movie(id: 0, mediaType: "", voteCount: 0, title: "", posterPath: "", overview: "")
+        let movie = Movie(id: 0, mediaType: "", voteCount: 0, title: "", posterPath: "/path", overview: "")
         self.init(movie: movie,
                   didTapCancel: { print("Cancel") })
     }
@@ -49,7 +49,7 @@ extension MovieDetailViewModel {
                                               font: UIFont.systemFont(ofSize: 13),
                                               color: UIColor.lightGray)
         
-        image = UIImageView(image: movie.posterImage)
+        imagePath = "\(ImageBasePath.url)\(movie.posterPath)"
         
         nameMovie = NSAttributedString(string: movie.title,
             font: UIFont.systemFont(ofSize: 22, weight: UIFontWeightBold),
@@ -64,8 +64,7 @@ extension MovieDetailViewModel {
                            mediaType: movie.mediaType,
                            voteCount: movie.voteCount,
                            title: movie.title,
-                           posterPath:
-                           movie.posterPath,
+                           posterPath: "\(ImageBasePath.url)\(movie.posterPath)",
                            overview: movie.overview)
         
         self.didTapCancel = didTapCancel
