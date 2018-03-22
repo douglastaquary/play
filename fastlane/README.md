@@ -15,17 +15,43 @@ Install _fastlane_ using
 or alternatively using `brew cask install fastlane`
 
 # Available Actions
-## iOS
-### ios custom_lane
+### oss_keys
 ```
-fastlane ios custom_lane
+fastlane oss_keys
 ```
-Description of what the lane does
-### ios test
+
+### oss
 ```
-fastlane ios test
+fastlane oss
 ```
-Runs all the tests
+Set all the API keys required for run
+### major
+```
+fastlane major
+```
+Increment major version
+### test
+```
+fastlane test
+```
+Runs all the tests on an iPhone
+### deploy
+```
+fastlane deploy
+```
+Release a new beta version on Hockey
+
+This action does the following:
+
+
+
+- Verifies API keys are non-empty
+
+- Ensures a clean git status
+
+- Increment the build number
+
+- Commit and push the version bump
 
 ----
 

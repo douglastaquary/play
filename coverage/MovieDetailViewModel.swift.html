@@ -7,9 +7,9 @@
 <body>
 <header><div class="row"><a href="index.html"><img src="logo.jpg" alt="Slather logo"></a></div></header><div class="row"><div id="reports">
 <h2 class="cov_title">
-<span>Coverage for "MovieDetailViewModel.swift" : </span><span class="cov_high">97.22%</span>
+<span>Coverage for "MovieDetailViewModel.swift" : </span><span class="cov_high">97.14%</span>
 </h2>
-<h4 class="cov_subtitle">(35 of 36 relevant lines covered)</h4>
+<h4 class="cov_subtitle">(34 of 35 relevant lines covered)</h4>
 <h4 class="cov_filepath">Play/Screens/Details/MovieDetailViewModel.swift</h4>
 <table class="source_code">
 <tr class="never">
@@ -79,12 +79,12 @@
 </tr>
 <tr class="never">
 <td class="num">14</td>
-<td class="src"><pre><code class="objc">    var image: UIImageView { get }</code></pre></td>
+<td class="src"><pre><code class="objc">    var nameMovie: NSAttributedString { get }</code></pre></td>
 <td class="coverage"></td>
 </tr>
 <tr class="never">
 <td class="num">15</td>
-<td class="src"><pre><code class="objc">    var nameMovie: NSAttributedString { get }</code></pre></td>
+<td class="src"><pre><code class="objc">    var imagePath: String { get }</code></pre></td>
 <td class="coverage"></td>
 </tr>
 <tr class="never">
@@ -124,7 +124,7 @@
 </tr>
 <tr class="never">
 <td class="num">23</td>
-<td class="src"><pre><code class="objc">    public let image: UIImageView</code></pre></td>
+<td class="src"><pre><code class="objc">    public let imagePath: String</code></pre></td>
 <td class="coverage"></td>
 </tr>
 <tr class="never">
@@ -189,7 +189,7 @@
 </tr>
 <tr class="covered">
 <td class="num">36</td>
-<td class="src"><pre><code class="objc">        let movie = Movie(id: 0, mediaType: "", voteCount: 0, title: "", posterPath: "", overview: "")</code></pre></td>
+<td class="src"><pre><code class="objc">        let movie = Movie(id: 0, mediaType: "", voteCount: 0, title: "", posterPath: "/path", overview: "")</code></pre></td>
 <td class="coverage">1x</td>
 </tr>
 <tr class="covered">
@@ -269,7 +269,7 @@
 </tr>
 <tr class="covered">
 <td class="num">52</td>
-<td class="src"><pre><code class="objc">        image = UIImageView(image: movie.posterImage)</code></pre></td>
+<td class="src"><pre><code class="objc">        imagePath = "\(ImageBasePath.url)\(movie.posterPath)"</code></pre></td>
 <td class="coverage">2x</td>
 </tr>
 <tr class="covered">
@@ -344,36 +344,31 @@
 </tr>
 <tr class="covered">
 <td class="num">67</td>
-<td class="src"><pre><code class="objc">                           posterPath:</code></pre></td>
+<td class="src"><pre><code class="objc">                           posterPath: "\(ImageBasePath.url)\(movie.posterPath)",</code></pre></td>
 <td class="coverage">2x</td>
 </tr>
 <tr class="covered">
 <td class="num">68</td>
-<td class="src"><pre><code class="objc">                           movie.posterPath,</code></pre></td>
-<td class="coverage">2x</td>
-</tr>
-<tr class="covered">
-<td class="num">69</td>
 <td class="src"><pre><code class="objc">                           overview: movie.overview)</code></pre></td>
 <td class="coverage">2x</td>
 </tr>
 <tr class="covered">
-<td class="num">70</td>
+<td class="num">69</td>
 <td class="src"><pre><code class="objc">        </code></pre></td>
 <td class="coverage">2x</td>
 </tr>
 <tr class="covered">
-<td class="num">71</td>
+<td class="num">70</td>
 <td class="src"><pre><code class="objc">        self.didTapCancel = didTapCancel</code></pre></td>
 <td class="coverage">2x</td>
 </tr>
 <tr class="covered">
-<td class="num">72</td>
+<td class="num">71</td>
 <td class="src"><pre><code class="objc">    }</code></pre></td>
 <td class="coverage">2x</td>
 </tr>
 <tr class="never">
-<td class="num">73</td>
+<td class="num">72</td>
 <td class="src"><pre><code class="objc">}</code></pre></td>
 <td class="coverage"></td>
 </tr>

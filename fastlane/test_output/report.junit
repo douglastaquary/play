@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<testsuites name='PlayTests.xctest' tests='14' failures='0'>
+<testsuites name='PlayTests.xctest' tests='13' failures='0'>
   <testsuite name='PlayTests.MovieDetailViewControllerTests' tests='2' failures='0'>
-    <testcase classname='PlayTests.MovieDetailViewControllerTests' name='MovieDetailViewController__should_be_able_to_create_a_controller' time='0.003'/>
-    <testcase classname='PlayTests.MovieDetailViewControllerTests' name='MovieDetailViewController__should_have_a_view_of_type' time='0.005'/>
+    <testcase classname='PlayTests.MovieDetailViewControllerTests' name='MovieDetailViewController__should_be_able_to_create_a_controller' time='0.004'/>
+    <testcase classname='PlayTests.MovieDetailViewControllerTests' name='MovieDetailViewController__should_have_a_view_of_type' time='0.014'/>
   </testsuite>
   <testsuite name='PlayTests.MovieTests' tests='3' failures='0'>
     <testcase classname='PlayTests.MovieTests' name='A_movie__should_not_be_nil' time='0.001'/>
@@ -10,16 +10,15 @@
     <testcase classname='PlayTests.MovieTests' name='A_movie__should_have_a_votes_count' time='0.001'/>
   </testsuite>
   <testsuite name='PlayTests.MoviesViewControllerTests' tests='7' failures='0'>
-    <testcase classname='PlayTests.MoviesViewControllerTests' name='should_not_be_nil' time='0.002'/>
-    <testcase classname='PlayTests.MoviesViewControllerTests' name='MoviesViewController__view_controlller_tilte' time='0.006'/>
-    <testcase classname='PlayTests.MoviesViewControllerTests' name='MoviesViewController__with_empty_movies' time='0.006'/>
+    <testcase classname='PlayTests.MoviesViewControllerTests' name='should_not_be_nil' time='0.003'/>
+    <testcase classname='PlayTests.MoviesViewControllerTests' name='MoviesViewController__view_controlller_tilte' time='0.008'/>
+    <testcase classname='PlayTests.MoviesViewControllerTests' name='MoviesViewController__with_empty_movies' time='0.007'/>
     <testcase classname='PlayTests.MoviesViewControllerTests' name='MoviesViewController__with_list_of_movies' time='0.006'/>
-    <testcase classname='PlayTests.MoviesViewControllerTests' name='MoviesViewController__should_be_able_to_update_the_collection' time='0.008'/>
-    <testcase classname='PlayTests.MoviesViewControllerTests' name='MoviesViewController__valid_selected_movie_callback__should_trigger_did_select_for_valid_callback' time='0.007'/>
-    <testcase classname='PlayTests.MoviesViewControllerTests' name='MoviesViewController__nil_selected_movie_callback__should_not_trigger_did_select_for_invalid_callback' time='0.006'/>
+    <testcase classname='PlayTests.MoviesViewControllerTests' name='MoviesViewController__should_be_able_to_update_the_collection' time='0.005'/>
+    <testcase classname='PlayTests.MoviesViewControllerTests' name='MoviesViewController__valid_selected_movie_callback__should_trigger_did_select_for_valid_callback' time='0.006'/>
+    <testcase classname='PlayTests.MoviesViewControllerTests' name='MoviesViewController__nil_selected_movie_callback__should_not_trigger_did_select_for_invalid_callback' time='0.007'/>
   </testsuite>
-  <testsuite name='PlayTests.PlayTests' tests='2' failures='0'>
-    <testcase classname='PlayTests.PlayTests' name='testExample' time='0.000'/>
-    <testcase classname='PlayTests.PlayTests' name='testPerformanceExample' time='0.289'/>
+  <testsuite name='PlayTests.PlayTests' tests='1' failures='0'>
+    <testcase classname='PlayTests.PlayTests' name='testPerformanceExample' time='0.370'/>
   </testsuite>
 </testsuites>
