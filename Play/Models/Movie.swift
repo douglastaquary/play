@@ -17,7 +17,6 @@ final public class Movie: NSObject, JSONAbleType {
     var title: String
     var posterPath: String
     var overview: String
-    var posterImage: UIImage?
 
     init(id: Int, mediaType: String, voteCount: Int, title: String, posterPath: String, overview: String) {
         self.id = id
