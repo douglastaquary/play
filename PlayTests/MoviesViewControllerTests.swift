@@ -64,7 +64,7 @@ class MoviesViewControllerTests: QuickSpec {
                 }
 
             }
-            
+
             context("valid selected movie callback"){
                 it("should trigger did select for valid callback") {
                     controller.setupCollectionView(with: moviesMock)
@@ -72,7 +72,6 @@ class MoviesViewControllerTests: QuickSpec {
                     
                     controller.didSelectMovie(at: firstIndex)
                 }
-                
             }
             
             context("nil selected movie callback") {

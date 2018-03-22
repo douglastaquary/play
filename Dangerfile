@@ -23,6 +23,7 @@ end
 
 # Xcode
 build_file = File.expand_path 'result.json'
+system "rake xcode:generate_summary[#{build_file}]"
 xcode_summary.report build_file
 
 # Ignoring warnings from Pods
@@ -33,5 +34,3 @@ slather.configure('Play.xcodeproj', 'Play', options: { workspace: 'Play.xcworksp
 slather.notify_if_coverage_is_less_than(minimum_coverage: 80, notify_level: :warning)
 slather.notify_if_modified_file_is_less_than(minimum_coverage: 50, notify_level: :warning)
 slather.show_modified_files_coverage
-
-

@@ -93,7 +93,8 @@ GEM
     faraday_middleware (0.12.2)
       faraday (>= 0.7.4, < 1.0)
     fastimage (2.1.1)
-    fastlane (2.86.0)
+    fastlane (2.86.2)
+
       CFPropertyList (>= 2.3, < 4.0.0)
       addressable (>= 2.3, < 3.0.0)
       babosa (>= 1.0.2, < 2.0.0)
@@ -235,7 +236,9 @@ GEM
       nanaimo (~> 0.2.3)
     xcpretty (0.2.8)
       rouge (~> 2.0.7)
-    xcpretty-travis-formatter (1.0.0)
+    xcpretty-json-formatter (0.1.0)
+      xcpretty (~> 0.2, >= 0.0.7)
+    xcpretty-travis-formatter (0.0.4)
       xcpretty (~> 0.2, >= 0.0.7)
 
 PLATFORMS
@@ -248,6 +251,11 @@ DEPENDENCIES
   danger-xcode_summary (~> 0.4)
   fastlane
   slather
+  xcpretty-json-formatter (~> 0.1)
+  xcpretty-travis-formatter (~> 0.0.4)
+
+RUBY VERSION
+   ruby 2.4.2p198
 
 RUBY VERSION
    ruby 2.4.2p198
