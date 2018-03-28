@@ -21,6 +21,7 @@ struct ImageBasePath {
 enum PlayAPI {
     case list(apiKey: String, sort_by: String)
     case detail(id: Int, apiKey: String)
+    case video(id: Int, apiKey: String)
     case ping
 }
 
@@ -41,6 +42,7 @@ extension PlayAPI: TargetType {
         switch self {
         case .list: return "4/list/1"
         case .detail(let id, _): return "3/movie/\(id)"
+        case .video(let id, _): return "3/movie/\(id)/videos"
         default:
             return "/"
         }
@@ -53,6 +55,8 @@ extension PlayAPI: TargetType {
                     "sort_by": sort_by,
                     "page": 1]
         case .detail(_, let api_key):
+            return ["api_key": api_key]
+        case .video(_, let api_key):
             return ["api_key": api_key]
         default:
             return [:]

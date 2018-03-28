@@ -12,6 +12,11 @@ public class MovieDetailView: UIView {
     
     let cancelButton: UIButton = UIButton(type: .system)
     
+    let trailerButton: PlayButton = {
+        let btn = PlayButton(frame: CGRect(x: 0, y: 0, width: 100, height: 44))
+        return btn
+    }()
+    
     let posterImageView: UIImageView = {
         let img = UIImageView()
         return img
@@ -24,6 +29,7 @@ public class MovieDetailView: UIView {
     
     let nameLabel: UILabel = {
         let label = UILabel()
+        label.textAlignment = .right
         label.numberOfLines = 2
         return label
     }()
@@ -56,6 +62,7 @@ public class MovieDetailView: UIView {
         super.init(frame: frame)
         setUp()
         updateView()
+        setUpTrailerButton()
     }
     
     @available(*, unavailable)
@@ -123,6 +130,13 @@ public class MovieDetailView: UIView {
         cancelButton.addTarget(self,
                                action: #selector(MovieDetailView.cancelTap),
                                for: .touchUpInside)
+        trailerButton.addTarget(self,
+                               action: #selector(MovieDetailView.watchTrailerTap),
+                               for: .touchUpInside)
+        
+        trailerButton.translatesAutoresizingMaskIntoConstraints = false
+        trailerButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        trailerButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         
         topBar.translatesAutoresizingMaskIntoConstraints = false
@@ -136,16 +150,17 @@ public class MovieDetailView: UIView {
         posterImageView.heightAnchor.constraint(equalToConstant: 240).isActive = true
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        nameLabel.heightAnchor.constraint(equalToConstant: 26).isActive = true
         
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .leading
+        stackView.distribution = .fillProportionally
+        stackView.alignment = .center
         stackView.spacing = grid
         stackView.addArrangedSubview(posterImageView)
         stackView.addArrangedSubview(nameLabel)
         stackView.addArrangedSubview(overviewLabel)
+        stackView.addArrangedSubview(trailerButton)
 
         stackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stackView)
@@ -153,7 +168,7 @@ public class MovieDetailView: UIView {
         stackView.topAnchor.constraint(equalTo: topBar.bottomAnchor).isActive = true
         stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: grid).isActive = true
         stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -grid).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: grid*2).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -grid*4).isActive = true
         
     }
     
@@ -165,11 +180,23 @@ public class MovieDetailView: UIView {
         posterImageView.download(image: viewModel.imagePath)
         nameLabel.attributedText = viewModel.nameMovie
         overviewLabel.attributedText = viewModel.overview
-        
     }
 
     @objc func cancelTap() {
         viewModel.didTapCancel()
+    }
+    
+    @objc func watchTrailerTap() {
+        viewModel.didTapWatchTrailer()
+    }
+    
+    func setUpTrailerButton() {
+        trailerButton.alpha = 0.5
+        trailerButton.isEnabled = false
+        trailerButton.layer.cornerRadius = 9
+        trailerButton.setAttributedTitle(NSAttributedString(string: "Assistir trailer",
+                                                            font: UIFont.systemFont(ofSize: 17, weight: UIFontWeightBold),
+                                                            color: .black), for: .normal)
     }
     
 }

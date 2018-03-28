@@ -50,7 +50,6 @@ extension NetworkingType {
 
             endpoint = endpoint.adding(newHTTPHeaderFields: ["Authorization": "Bearer \(AppToken().token ?? "")"])
 
-            
             return endpoint
         }
     }
