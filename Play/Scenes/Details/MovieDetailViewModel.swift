@@ -21,13 +21,13 @@ public protocol MovieDetailViewModelType {
     var didTapWatchTrailer: () -> Void { get }
     var movie: Movie { get }
     
-    func fetchTrailerByVideo(with id: Int) -> Observable<Void>
+    //func fetchTrailerByVideo(with id: Int) -> Observable<Void>
 }
 
 public struct MovieDetailViewModel: MovieDetailViewModelType {
     let disposeBag = DisposeBag()
     
-    let provider: Networking = Networking.newDefaultNetworking()
+    //let provider: Networking = Networking.newDefaultNetworking()
     
     public let imagePath: String
     public let nameMovie: NSAttributedString
@@ -50,21 +50,21 @@ public struct MovieDetailViewModel: MovieDetailViewModelType {
 }
 
 
-extension MovieDetailViewModel: VideoServiceProtocol {
-    public func fetchTrailerByVideo(with id: Int) -> Observable<Void> {
-        let endpoint = PlayAPI.video(id: id, apiKey: AppToken().apiKey ?? "")
-        
-        return provider.request(endpoint)
-            .filterSuccessfulStatusCodes()
-            .mapJSON()
-            .mapTo(object: VideoResultList.self)
-            .map { result in
-                self.currentVideos.value = result.videos ?? []
-            }
-            .map(void)
-    }
-    
-}
+//extension MovieDetailViewModel: VideoServiceProtocol {
+////    public func fetchTrailerByVideo(with id: Int) -> Observable<Void> {
+////        let endpoint = PlayAPI.video(id: id, apiKey: AppToken().apiKey ?? "")
+////
+////        return provider.request(endpoint)
+////            .filterSuccessfulStatusCodes()
+////            .mapJSON()
+////            .mapTo(object: VideoResultList.self)
+////            .map { result in
+////                self.currentVideos.value = result.videos ?? []
+////            }
+////            .map(void)
+////    }
+//    
+//}
 
 
 extension MovieDetailViewModel {

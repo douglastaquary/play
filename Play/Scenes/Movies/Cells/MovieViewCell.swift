@@ -22,7 +22,7 @@ final class MovieViewCell: UICollectionViewCell, NibReusable {
     }
     
     
-    func setup(item: Movie) {
+    func setup(item: ListMovies.ViewModel.DisplayedMovie) {
         titleLabel.text = item.title
         posterImage.download(image: "\(ImageBasePath.url)\(item.posterPath)")
     }
