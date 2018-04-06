@@ -160,7 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				4EF8B88C2066F2E400F21151 /* Views */,
-				4EF8B8872066E90D00F21151 /* Protocols */,
 				4EB23CE6205EB9F2002ED3DC /* Apperance */,
 				4EB23CE3205DBA6C002ED3DC /* Transition */,
 				4E725D14205D711500C0993B /* Storyboards */,
@@ -200,6 +199,8 @@
 		4E725D01205CCFC300C0993B /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				4E725CFE205CC6FF00C0993B /* PlayRepository.swift */,
+				4EF8B8882066E92A00F21151 /* VideoServiceProtocol.swift */,
 				4E78969B205D991F000BF86F /* JSONAble.swift */,
 			);
 			path = Protocols;
@@ -298,16 +299,6 @@
 				4E61434C205F3933007E21CE /* MovieTests.swift */,
 			);
 			path = PlayTests;
-			sourceTree = "<group>";
-		};
-		4EF8B8872066E90D00F21151 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				4E725CFE205CC6FF00C0993B /* PlayRepository.swift */,
-				4EF8B8882066E92A00F21151 /* VideoServiceProtocol.swift */,
-			);
-			name = Protocols;
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		4EF8B88C2066F2E400F21151 /* Views */ = {

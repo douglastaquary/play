@@ -41,25 +41,21 @@ struct PlaybackHelper {
     
     func play(from controller: UIViewController) {
         if let videoCompleteURL = URL(string: "https://www.youtube.com/watch?v=\(video.key)") {
-            print("\n\(videoCompleteURL)")
-            
-            Youtube.h264videosWithYoutubeURL(youtubePath) { info, error in
+            Youtube.h264videosWithYoutubeURL(videoCompleteURL) { info, error in
                 guard error == nil else {
                     DispatchQueue.main.async {
                         self.show(error!, from: controller)
                     }
                     return
                 }
-                
-                if let _ = info?["url"] as? String {
-                    DispatchQueue.main.async {
-                        self.setupAndPlay(videoCompleteURL, from: controller)
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.show(PlaybackError.urlNotFound, from: controller)
-                    }
+                DispatchQueue.main.async {
+                    self.setupAndPlay(videoCompleteURL, from: controller)
                 }
+            }
+        }
+        else {
+            DispatchQueue.main.async {
+                self.show(PlaybackError.urlNotFound, from: controller)
             }
         }
     }
@@ -79,6 +75,8 @@ struct PlaybackHelper {
     
     private func setupAndPlay(_ videoUrl: URL, from controller: UIViewController) {
         let player = AVPlayer(url: videoUrl)
+        
+        print("\nURL --> \(videoUrl)")
         
         self.moviePlayer.player = player
         
