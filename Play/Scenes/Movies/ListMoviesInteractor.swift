@@ -7,27 +7,45 @@
 //
 
 import UIKit
+import RxSwift
 
-protocol ListMoviesBusinessLogic {
-    func fetchMovies(request: ListMovies.Request)
+protocol ListMoviesInteractorInput {
+    func showMovieList(request: ListMovies.Request)
+//    var isLoading: Bool { get }
 }
 
-protocol ListMoviesData {
-    var movies: [Movie]? { get }
+protocol ListMoviesInteractorOutput {
+    func presentList(_ reponse: ListMovies.Response)
+//    var movies: [Movie]? { get }
 }
 
-class ListMoviesInteractor: ListMoviesBusinessLogic, ListMoviesData {
-    var presenter: ListMoviesPresentationLogic?
-    var moviesWorker = MoviesWorker(networkFetcher: URLSessionFetcher.init())
+class ListMoviesInteractor: ListMoviesInteractorInput {
+
+    let disposeBag = DisposeBag()
+    var currentLoading = Variable<Bool>(true)
+    var output: ListMoviesInteractorOutput?
+    var moviesWorker = MoviesWorker()
+    
+    var isLoading: Bool {
+        return currentLoading.value
+    }
     
     var movies: [Movie]?
     
     //MARK: - fetch movies
     func fetchMovies(request: ListMovies.Request) {
-        moviesWorker.networkFetcher.fetchNewMovies { (movies) -> Void in
-            self.movies = movies
-            let response = ListMovies.Response(movies: movies)
-            self.presenter?.presentFetchMovies(response: response)
-        }
+        moviesWorker.fetchNewMovies().asObservable().subscribe(
+            onNext: { [unowned self] newMovies in
+                self.movies = newMovies
+        }, onError: { error in
+            print("\(error.localizedDescription)")
+        }).addDisposableTo(disposeBag)
+    }
+}
+
+extension ListMoviesInteractor {
+    func showMovieList(request: ListMovies.Request) {
+        let reponse = ListMovies.Response(movies: self.movies ?? [])
+        output?.presentList(reponse)
     }
 }

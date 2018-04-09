@@ -8,29 +8,30 @@
 
 import UIKit
 
-protocol ListMoviesPresentationLogic {
-    func presentFetchMovies(response: ListMovies.Response)
+protocol ListMoviesPresenterOutput: class {
+    func displayList(_ viewModel: ListMovies.ViewModel)
 }
 
-class ListMoviesPresenter: ListMoviesPresentationLogic {
-    weak var viewController: ListMoviesDisplayLogic?
+class ListMoviesPresenter: ListMoviesInteractorOutput {
+    weak var output: ListMoviesPresenterOutput?
     
     //MARK: - Fetch Movies
-    func presentFetchMovies(response: ListMovies.Response) {
+    func presentList(_ reponse: ListMovies.Response) {
         var displayedMovies: [ListMovies.ViewModel.DisplayedMovie] = []
-        for movie in response.movies {
-            let id = movie.id
-            let mediaType = movie.mediaType
-            let voteCount = movie.voteCount
-            let title = movie.title
-            let posterPath = movie.posterPath
-            let overview = movie.posterPath
-            let displayedMovie = ListMovies.ViewModel.DisplayedMovie(id: id, mediaType: mediaType, voteCount: voteCount, title: title, posterPath: posterPath, overview: overview)
+        
+        reponse.movies.forEach { (movie) in
+            let displayedMovie =
+                    ListMovies.ViewModel.DisplayedMovie(id: movie.id,
+                                                        mediaType: movie.mediaType,
+                                                        voteCount: movie.voteCount,
+                                                        title: movie.title,
+                                                        posterPath: movie.posterPath,
+                                                        overview: movie.overview)
             displayedMovies.append(displayedMovie)
         }
-        
+
         let viewModel = ListMovies.ViewModel(displayedMovies: displayedMovies)
-        viewController?.displayFetchMovies(viewModel: viewModel)
+        output?.displayList(viewModel)
     }
         
 }

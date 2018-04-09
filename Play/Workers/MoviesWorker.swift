@@ -8,28 +8,35 @@
 
 import UIKit
 import Foundation
+import RxSwift
 
 //MARK: - MoviesWorker
 
 typealias FetchResult = () -> Void
 typealias JSONDictionary = [String:Any]
 
-class MoviesWorker {
+fileprivate let provider: Networking = Networking.newDefaultNetworking()
+
+struct MoviesWorker: NetworkFetcher {
     
-    var networkFetcher: NetworkFetcher
-    let session: URLSession
+    init() {}
     
-    init(networkFetcher: NetworkFetcher) {
-        self.networkFetcher = networkFetcher
-        session = URLSession.shared
+    func fetchNewMovies() -> Observable<Array<Movie>> {
+        let endpoint: PlayAPI = PlayAPI.list(apiKey: AppToken().apiKey ?? "", sort_by: "vote_average.asc")
+        
+        return provider.request(endpoint)
+            .filterSuccessfulStatusCodes()
+            .mapJSON()
+            .mapTo(object: ResultList.self)
+            .map { result -> [Movie] in
+                return result.movies ?? []
+            }
     }
-    
+
 }
 
 protocol NetworkFetcher {
-    func fetchJSON(onComplete: @escaping ((JSONDictionary?) -> Void))
-    func fetchNewMovies(_ completion: @escaping ([Movie]) -> Void)
-    //func fetchMovies(_ completion: @escaping (() throws -> [Movie], MoviesStoreError?) -> Void)
+    func fetchNewMovies() -> Observable<Array<Movie>>
 }
 
 enum MoviesStoreResult<T> {
@@ -40,24 +47,6 @@ enum MoviesStoreResult<T> {
 enum MoviesStoreError: Swift.Error {
     case cannotFetch(String)
     case cannotUpdate(String)
-}
-
-extension NetworkFetcher {
-    func fetchNewMovies(_ completion: @escaping ([Movie]) -> Void) {
-        self.fetchJSON { (json) in
-            do {
-                guard let json = json else {
-                    return
-                }
-                
-                let result = ResultList.fromJSON(json)
-                DispatchQueue.main.async {
-                    completion(result.movies ?? [])
-                }
-            }
-        }
-    }
-    
 }
 
 

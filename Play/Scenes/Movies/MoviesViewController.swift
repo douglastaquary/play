@@ -12,13 +12,14 @@ protocol ListMoviesDisplayLogic: class {
     func displayFetchMovies(viewModel: ListMovies.ViewModel)
 }
 
-class MoviesViewController: UIViewController, ListMoviesDisplayLogic {
-    
+class MoviesViewController: UIViewController, ListMoviesPresenterOutput {
+
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var loadingAcitivity: UIActivityIndicatorView!
     
-    var interactor: ListMoviesBusinessLogic?
+    var output: ListMoviesInteractorInput?
     var router: (NSObjectProtocol & ListMoviesRouterLogic & ListMoviesDataPassing)?
+    
     var displayedMovies: [ListMovies.ViewModel.DisplayedMovie] = []
 
     let modalTransitionController = ModalTransition()
@@ -35,43 +36,32 @@ extension MoviesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Filmes"
+        
+        ListMoviesConfigurator.sharedInstance.configure(viewController: self)
+
         collectionView.backgroundColor = .black
         collectionView.register(cellType: MovieViewCell.self)
         loadingAcitivity.startAnimating()
-        setup()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        fetchMovies()
+        showListOnLoad()
     }
 }
 
 
 extension MoviesViewController {
-    //MARK: - Setup
-    fileprivate func setup() {
-        let viewController = self
-        let interactor = ListMoviesInteractor()
-        let presenter = ListMoviesPresenter()
-        let router = ListMoviesRouter()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
+    func showListOnLoad() {
+        output?.showMovieList(request: ListMovies.Request())
     }
-    
 }
 
 extension MoviesViewController {
-    func fetchMovies() {
-        let request = ListMovies.Request()
-        interactor?.fetchMovies(request: request)
+    func displayList(_ viewModel: ListMovies.ViewModel) {
+        displayedMovies = viewModel.displayedMovies
+        collectionView.reloadData()
     }
-
 }
 
 extension MoviesViewController {
