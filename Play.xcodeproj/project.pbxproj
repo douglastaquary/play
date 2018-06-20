@@ -361,7 +361,6 @@
 				4E725CE3205CC22F00C0993B /* Frameworks */,
 				4E725CE4205CC22F00C0993B /* Resources */,
 				ABA07C45A31708D1EAB5E54E /* [CP] Embed Pods Frameworks */,
-				F08216FED9EA5E46DBED2016 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -381,7 +380,6 @@
 				4EB23CEC205EE224002ED3DC /* Frameworks */,
 				4EB23CED205EE224002ED3DC /* Resources */,
 				E2A17CBC20C061E4432E4797 /* [CP] Embed Pods Frameworks */,
-				251ECB0BBEAE3A4B7B490911 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -455,21 +453,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		251ECB0BBEAE3A4B7B490911 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PlayTests/Pods-PlayTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3E03381FB5219AAEB4B7F3EA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -562,21 +545,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F08216FED9EA5E46DBED2016 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Play/Pods-Play-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

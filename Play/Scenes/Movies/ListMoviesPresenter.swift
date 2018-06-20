@@ -8,30 +8,28 @@
 
 import UIKit
 
-protocol ListMoviesPresenterOutput: class {
-    func displayList(_ viewModel: ListMovies.ViewModel)
+protocol ListMoviesPresenterProtocol {
+    func presentMoviesList(_ movies: [Movie])
+    func presentSelectedMovie(movie: Movie)
+    func presentError(errorMessage: String)
 }
 
-class ListMoviesPresenter: ListMoviesInteractorOutput {
-    weak var output: ListMoviesPresenterOutput?
-    
-    //MARK: - Fetch Movies
-    func presentList(_ reponse: ListMovies.Response) {
-        var displayedMovies: [ListMovies.ViewModel.DisplayedMovie] = []
-        
-        reponse.movies.forEach { (movie) in
-            let displayedMovie =
-                    ListMovies.ViewModel.DisplayedMovie(id: movie.id,
-                                                        mediaType: movie.mediaType,
-                                                        voteCount: movie.voteCount,
-                                                        title: movie.title,
-                                                        posterPath: movie.posterPath,
-                                                        overview: movie.overview)
-            displayedMovies.append(displayedMovie)
-        }
+class ListMoviesPresenter: ListMoviesPresenterProtocol {
 
-        let viewModel = ListMovies.ViewModel(displayedMovies: displayedMovies)
-        output?.displayList(viewModel)
+    //MARK: Properties
+    var controller: MoviesViewControllerProtocol?
+    
+    //MARK: Presenter Protocol
+    func presentMoviesList(_ movies: [Movie]) {
+        controller?.displayMovies(movies: movies)
+    }
+    
+    func presentSelectedMovie(movie: Movie) {
+        controller?.displaySelectedMovie(scheduledRecharge: movie)
+    }
+    
+    func presentError(errorMessage: String) {
+        controller?.displayError(errorMessage: errorMessage)
     }
         
 }

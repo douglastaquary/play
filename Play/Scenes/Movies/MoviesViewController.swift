@@ -8,20 +8,21 @@
 
 import UIKit
 
-protocol ListMoviesDisplayLogic: class {
-    func displayFetchMovies(viewModel: ListMovies.ViewModel)
+protocol MoviesViewControllerProtocol {
+    func displayMovies(movies: [Movie])
+    func displayError(errorMessage: String)
+    func displaySelectedMovie(scheduledRecharge: Movie)
 }
 
-class MoviesViewController: UIViewController, ListMoviesPresenterOutput {
+class MoviesViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var loadingAcitivity: UIActivityIndicatorView!
     
-    var output: ListMoviesInteractorInput?
-    var router: (NSObjectProtocol & ListMoviesRouterLogic & ListMoviesDataPassing)?
+    var interactor: ListMoviesInteractorProtocol?
+    var movies: [Movie] = []
+    //var router: (NSObjectProtocol & ListMoviesRouterLogic & ListMoviesDataPassing)?
     
-    var displayedMovies: [ListMovies.ViewModel.DisplayedMovie] = []
-
     let modalTransitionController = ModalTransition()
     
     public var isLoading = true {
@@ -37,7 +38,9 @@ extension MoviesViewController {
         super.viewDidLoad()
         title = "Filmes"
         
-        ListMoviesConfigurator.sharedInstance.configure(viewController: self)
+        setup()
+        
+        interactor?.fetchMovies()
 
         collectionView.backgroundColor = .black
         collectionView.register(cellType: MovieViewCell.self)
@@ -46,32 +49,35 @@ extension MoviesViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showListOnLoad()
     }
 }
 
 
 extension MoviesViewController {
-    func showListOnLoad() {
-        output?.showMovieList(request: ListMovies.Request())
+    func setup() {
+        let interactor = ListMoviesInteractor()
+        self.interactor = interactor
+        let presenter = ListMoviesPresenter()
+        presenter.controller = self
+        interactor.presenter = presenter
     }
 }
 
-extension MoviesViewController {
-    func displayList(_ viewModel: ListMovies.ViewModel) {
-        displayedMovies = viewModel.displayedMovies
-        collectionView.reloadData()
-    }
-}
 
-extension MoviesViewController {
-    func displayFetchMovies(viewModel: ListMovies.ViewModel) {
-        displayedMovies = viewModel.displayedMovies
-        collectionView.reloadData()
+extension MoviesViewController: MoviesViewControllerProtocol {
+    func displayMovies(movies: [Movie]) {
+        self.movies = movies
+        loadingAcitivity.isHidden = true
+        self.collectionView.reloadData()
     }
-}
+    
+    func displayError(errorMessage: String) {
+        print(errorMessage)
+    }
+    
+    func displaySelectedMovie(scheduledRecharge: Movie) {}
 
-extension MoviesViewController {
+    
     func updateMovies()  {
         loadingAcitivity.isHidden = false
         loadingAcitivity.startAnimating()
@@ -85,12 +91,12 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return displayedMovies.count
+        return movies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: MovieViewCell.self)
-        let item = displayedMovies[indexPath.row]
+        let item = movies[indexPath.row]
         cell.setup(item: item)
         
         return cell

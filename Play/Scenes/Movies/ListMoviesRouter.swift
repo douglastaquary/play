@@ -13,12 +13,12 @@ import UIKit
 }
 
 protocol ListMoviesDataPassing {
-    var dataStore: ListMoviesData? { get }
+//    var dataStore: ListMoviesData? { get }
 }
 
 class ListMoviesRouter: NSObject, ListMoviesRouterLogic, ListMoviesDataPassing {
     weak var viewController: MoviesViewController?
-    var dataStore: ListMoviesData?
+//    var dataStore: ListMoviesData?
     
     let modalTransitionController = ModalTransition()
     
@@ -39,13 +39,13 @@ class ListMoviesRouter: NSObject, ListMoviesRouterLogic, ListMoviesDataPassing {
     }
     
     //MARK: - Passing Data
-    func passDataToShowMovie(source: ListMoviesData, destination: inout MovieDetailViewController) {
-        if let selectedRows = viewController?.collectionView.indexPathsForSelectedItems {
-            guard let selectedIndex = selectedRows.first else {
-                return
-            }
-            destination.movie = source.movies![selectedIndex.row]
-        }
-    }
+//    func passDataToShowMovie(source: ListMoviesData, destination: inout MovieDetailViewController) {
+//        if let selectedRows = viewController?.collectionView.indexPathsForSelectedItems {
+//            guard let selectedIndex = selectedRows.first else {
+//                return
+//            }
+//            destination.movie = source.movies![selectedIndex.row]
+//        }
+//    }
 }
 

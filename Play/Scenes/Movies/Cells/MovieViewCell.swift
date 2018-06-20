@@ -14,15 +14,13 @@ final class MovieViewCell: UICollectionViewCell, NibReusable {
     @IBOutlet weak var posterImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
 
-    
     static func size(for parentWidth: CGFloat) -> CGSize {
         let numberOfCells = CGFloat(2)
         let width = parentWidth / numberOfCells
         return CGSize(width: width, height: width + 30)
     }
     
-    
-    func setup(item: ListMovies.ViewModel.DisplayedMovie) {
+    func setup(item: Movie) {
         titleLabel.text = item.title
         posterImage.download(image: "\(ImageBasePath.url)\(item.posterPath)")
     }
@@ -32,7 +30,5 @@ final class MovieViewCell: UICollectionViewCell, NibReusable {
         self.posterImage.layer.borderWidth = 1
         self.posterImage.layer.cornerRadius = 5
     }
-    
-
     
 }

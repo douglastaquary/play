@@ -43,6 +43,20 @@ DEPENDENCIES:
   - SwiftyJSON
   - YoutubeSourceParserKit (from `https://github.com/lennet/YoutubeSourceParserKit`, branch `master`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - FBSnapshotTestCase
+    - Kingfisher
+    - Nimble
+    - Nimble-Snapshots
+    - Quick
+    - Result
+    - Reusable
+    - RxCocoa
+    - RxSwift
+    - SwiftyJSON
+
 EXTERNAL SOURCES:
   Moya:
     :git: https://github.com/Moya/Moya.git
@@ -76,4 +90,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 00f32b82bdf433b5952e7702b30f11039d5b2b2b
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.2

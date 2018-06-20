@@ -9,43 +9,36 @@
 import UIKit
 import RxSwift
 
-protocol ListMoviesInteractorInput {
-    func showMovieList(request: ListMovies.Request)
-//    var isLoading: Bool { get }
+protocol ListMoviesInteractorProtocol {
+    func fetchMovies()
+    func didSelectedMovie(with movie: Movie)
 }
 
-protocol ListMoviesInteractorOutput {
-    func presentList(_ reponse: ListMovies.Response)
-//    var movies: [Movie]? { get }
-}
-
-class ListMoviesInteractor: ListMoviesInteractorInput {
-
+class ListMoviesInteractor: ListMoviesInteractorProtocol {
+    
     let disposeBag = DisposeBag()
     var currentLoading = Variable<Bool>(true)
-    var output: ListMoviesInteractorOutput?
+    
+    var presenter: ListMoviesPresenterProtocol?
     var moviesWorker = MoviesWorker()
     
     var isLoading: Bool {
         return currentLoading.value
     }
-    
-    var movies: [Movie]?
-    
+
     //MARK: - fetch movies
-    func fetchMovies(request: ListMovies.Request) {
+    func fetchMovies() {
         moviesWorker.fetchNewMovies().asObservable().subscribe(
             onNext: { [unowned self] newMovies in
-                self.movies = newMovies
+                self.presenter?.presentMoviesList(newMovies)
         }, onError: { error in
-            print("\(error.localizedDescription)")
+            self.presenter?.presentError(errorMessage: error.localizedDescription)
         }).addDisposableTo(disposeBag)
+    }
+    
+    func didSelectedMovie(with movie: Movie) {
+        self.presenter?.presentSelectedMovie(movie: movie)
     }
 }
 
-extension ListMoviesInteractor {
-    func showMovieList(request: ListMovies.Request) {
-        let reponse = ListMovies.Response(movies: self.movies ?? [])
-        output?.presentList(reponse)
-    }
-}
+
