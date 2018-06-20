@@ -63,7 +63,7 @@ public struct MovieDetailViewModel: MovieDetailViewModelType {
 ////            }
 ////            .map(void)
 ////    }
-//    
+//
 //}
 
 

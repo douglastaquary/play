@@ -17,14 +17,9 @@ protocol ListMoviesInteractorProtocol {
 class ListMoviesInteractor: ListMoviesInteractorProtocol {
     
     let disposeBag = DisposeBag()
-    var currentLoading = Variable<Bool>(true)
     
     var presenter: ListMoviesPresenterProtocol?
     var moviesWorker = MoviesWorker()
-    
-    var isLoading: Bool {
-        return currentLoading.value
-    }
 
     //MARK: - fetch movies
     func fetchMovies() {

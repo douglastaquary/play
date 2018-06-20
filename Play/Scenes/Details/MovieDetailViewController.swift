@@ -14,6 +14,7 @@ protocol MovieDetailViewControllerDelegate {
 }
 
 class MovieDetailViewController: UIViewController {
+    
     var movie: Movie
     
     public var delegate: MovieDetailViewControllerDelegate?
@@ -62,25 +63,6 @@ extension MovieDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        self.viewModel.fetchTrailerByVideo(with: movie.id).asObservable()
-//            .subscribe(
-//                onNext: { [weak self] _ in
-//                    guard let `self` = self else { return }
-//                    self.didLoaded.value = true
-//                    if self.didLoaded.value {
-//                        self.detailView.trailerButton.alpha = 1
-//                        self.detailView.trailerButton.isEnabled = self.didLoaded.value
-//                    } else {
-//                        self.detailView.trailerButton.alpha = 0.5
-//                        self.detailView.trailerButton.isEnabled = self.didLoaded.value
-//                    }
-//
-//                    self.video = self.viewModel.videos[0]
-//
-//                }, onError: { error in
-//                    print(error.localizedDescription)
-//            }).addDisposableTo(disposeBagUI)
     }
     
     override public func viewWillAppear(_ animated: Bool) {
