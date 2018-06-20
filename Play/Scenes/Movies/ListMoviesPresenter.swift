@@ -25,7 +25,7 @@ class ListMoviesPresenter: ListMoviesPresenterProtocol {
     }
     
     func presentSelectedMovie(movie: Movie) {
-        controller?.displaySelectedMovie(scheduledRecharge: movie)
+        controller?.displaySelectedMovie(with: movie)
     }
     
     func presentError(errorMessage: String) {

@@ -11,7 +11,7 @@ import UIKit
 protocol MoviesViewControllerProtocol {
     func displayMovies(movies: [Movie])
     func displayError(errorMessage: String)
-    func displaySelectedMovie(scheduledRecharge: Movie)
+    func displaySelectedMovie(with movie: Movie)
 }
 
 class MoviesViewController: UIViewController {
@@ -21,7 +21,6 @@ class MoviesViewController: UIViewController {
     
     var interactor: ListMoviesInteractorProtocol?
     var movies: [Movie] = []
-    //var router: (NSObjectProtocol & ListMoviesRouterLogic & ListMoviesDataPassing)?
     
     let modalTransitionController = ModalTransition()
     
@@ -75,13 +74,16 @@ extension MoviesViewController: MoviesViewControllerProtocol {
         print(errorMessage)
     }
     
-    func displaySelectedMovie(scheduledRecharge: Movie) {}
-
-    
-    func updateMovies()  {
-        loadingAcitivity.isHidden = false
-        loadingAcitivity.startAnimating()
+    func displaySelectedMovie(with movie: Movie) {
+        let movieDetailViewController = MovieDetailViewController(with: movie)
+        movieDetailViewController.delegate = self
+        movieDetailViewController.modalPresentationStyle = .custom
+        movieDetailViewController.transitioningDelegate = modalTransitionController
+        
+        self.navigationController?.present(movieDetailViewController,
+                                           animated: true)
     }
+
 }
 
 
@@ -103,7 +105,7 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       // router.routerToShowMovie(at: )
+       displaySelectedMovie(with: movies[indexPath.row])
     }
     
     
