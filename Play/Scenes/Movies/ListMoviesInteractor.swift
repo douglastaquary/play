@@ -23,12 +23,13 @@ class ListMoviesInteractor: ListMoviesInteractorProtocol {
 
     //MARK: - fetch movies
     func fetchMovies() {
-        moviesWorker.fetchNewMovies().asObservable().subscribe(
-            onNext: { [unowned self] newMovies in
-                self.presenter?.presentMoviesList(newMovies)
-        }, onError: { error in
-            self.presenter?.presentError(errorMessage: error.localizedDescription)
-        }).addDisposableTo(disposeBag)
+        moviesWorker.fetchNewMovies().asObservable()
+            .subscribe(
+                onNext: { [unowned self] newMovies in
+                    self.presenter?.presentMoviesList(newMovies)
+                }, onError: { error in
+                    self.presenter?.presentError(errorMessage: error.localizedDescription)
+            }).addDisposableTo(disposeBag)
     }
     
     func didSelectedMovie(with movie: Movie) {

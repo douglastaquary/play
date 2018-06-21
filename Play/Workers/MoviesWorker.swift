@@ -17,12 +17,14 @@ typealias JSONDictionary = [String:Any]
 
 fileprivate let provider: Networking = Networking.newDefaultNetworking()
 
+private let sort_by_vote_average_asc = "vote_average.asc"
+
 struct MoviesWorker: NetworkFetcher {
     
     init() {}
     
     func fetchNewMovies() -> Observable<Array<Movie>> {
-        let endpoint: PlayAPI = PlayAPI.list(apiKey: AppToken().apiKey ?? "", sort_by: "vote_average.asc")
+        let endpoint: PlayAPI = PlayAPI.list(apiKey: AppToken().apiKey ?? "", sort_by: sort_by_vote_average_asc)
         
         return provider.request(endpoint)
             .filterSuccessfulStatusCodes()
