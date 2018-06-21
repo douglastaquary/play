@@ -11,7 +11,7 @@ import RxSwift
 
 protocol ListMoviesInteractorProtocol {
     func fetchMovies()
-    func didSelectedMovie(with movie: Movie)
+    func didTapShowTrailer(with movie: Movie)
 }
 
 class ListMoviesInteractor: ListMoviesInteractorProtocol {
@@ -32,7 +32,7 @@ class ListMoviesInteractor: ListMoviesInteractorProtocol {
             }).addDisposableTo(disposeBag)
     }
     
-    func didSelectedMovie(with movie: Movie) {
+    func didTapShowTrailer(with movie: Movie) {
         self.presenter?.presentSelectedMovie(movie: movie)
     }
 }

@@ -9,26 +9,24 @@
 import UIKit
 import RxSwift
 
-protocol MovieDetailViewControllerDelegate {
-    func didEnd(on viewController: MovieDetailViewController)
+protocol MovieDetailViewControllerProtocol {
+    func displayMovie(_ movie: Movie)
+    func displayError(errorMessage: String)
+    func displayMovieTrailer(with movie: Movie)
 }
+
 
 class MovieDetailViewController: UIViewController {
     
     var movie: Movie
-    
-    public var delegate: MovieDetailViewControllerDelegate?
-    
     var video: Video? = nil
     
-    let viewModel = MovieDetailViewModel()
+    var interactor: MovieDetailInteractorProtocol?
     
     var detailView = MovieDetailView()
-    
     var didLoaded = Variable<Bool>(false)
     
     let disposeBagUI = DisposeBag()
-    
     
     public required init(with movie: Movie) {
         self.movie = movie
@@ -60,36 +58,52 @@ extension MovieDetailViewController {
 
 
 extension MovieDetailViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override public func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        setupView()
         
-        let viewModel = MovieDetailViewModel(movie: movie,
-                                             didTapCancel: { [weak self] in self?.didEnd() },
-                                             didTapWatchTrailer: { [weak self] in self?.playTrailer() })
-
-        theView.viewModel = viewModel
+        interactor?.didDisplayMovie(with: self.movie)
+        
+        theView.didEnd = { [weak self] in
+            self?.didEnd()
+        }
     }
-    
+
     override public func viewDidLayoutSubviews() {
         theView.topOffset = topLayoutGuide.length
     }
     
-}
-
-extension MovieDetailViewController {
+    func setupView() {
+        let interactor = MovieDetailInteractor()
+        self.interactor = interactor
+        let presenter = MovieDetailPresenter()
+        presenter.controller = self
+        interactor.presenter = presenter
+    }
+    
     func didEnd() {
-        delegate?.didEnd(on: self)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func playTrailer() {
         if let video = video {
-           PlaybackHelper(with: video).play(from: self)
+            PlaybackHelper(with: video).play(from: self)
         }
         print("Playiou")
+    }
+
+}
+
+extension MovieDetailViewController: MovieDetailViewControllerProtocol {
+    func displayMovie(_ movie: Movie) {
+        theView.updateView(with: movie)
+    }
+    
+    func displayError(errorMessage: String) {
+        print("\n### TODO: - Implement alert error")
+    }
+    
+    func displayMovieTrailer(with movie: Movie) {
+        print("did tap show ")
     }
 }

@@ -10,6 +10,8 @@ import UIKit
 
 public class MovieDetailView: UIView {
     
+    var didEnd: (() -> Void)?
+    
     let cancelButton: UIButton = UIButton(type: .system)
     
     let trailerButton: PlayButton = {
@@ -40,11 +42,6 @@ public class MovieDetailView: UIView {
         return label
     }()
     
-    public var viewModel: MovieDetailViewModelType = MovieDetailViewModel() {
-        didSet {
-            updateView()
-        }
-    }
     
     public var topOffset: CGFloat {
         set(topOffset) {
@@ -61,7 +58,6 @@ public class MovieDetailView: UIView {
     override public init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
-        updateView()
         setUpTrailerButton()
     }
     
@@ -169,26 +165,36 @@ public class MovieDetailView: UIView {
         stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: grid).isActive = true
         stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -grid).isActive = true
         stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -grid*4).isActive = true
-        
     }
     
-    func updateView() {
-        titleLabel.attributedText = viewModel.title
-        cancelButton.setAttributedTitle(viewModel.cancelButtonText,
-                                        for: .normal)
+    func updateView(with movie: Movie) {
+        titleLabel.attributedText = NSAttributedString(string: movie.title,
+                                                       font: UIFont.systemFont(ofSize: 15),
+                                                       color: UIColor.orange)
+        
+        let cancelText = NSAttributedString(string: "Cancelar",
+                                            font: UIFont.systemFont(ofSize: 15),
+                                            color: UIColor.lightGray)
+        
+        cancelButton.setAttributedTitle(cancelText, for: .normal)
+        
         posterImageView.layer.cornerRadius = 5
-        posterImageView.download(image: viewModel.imagePath)
-        nameLabel.attributedText = viewModel.nameMovie
-        overviewLabel.attributedText = viewModel.overview
+        posterImageView.download(image: "\(ImageBasePath.url)\(movie.posterPath)")
+        nameLabel.attributedText = NSAttributedString(string: movie.title,
+                                                      font: UIFont.systemFont(ofSize: 22, weight: UIFontWeightBold),
+                                                      color: UIColor.white)
+        
+        overviewLabel.attributedText = NSAttributedString(string: movie.overview,
+                                                          font: UIFont.systemFont(ofSize: 15),
+                                                          color: UIColor.lightGray)
     }
 
+    
     @objc func cancelTap() {
-        viewModel.didTapCancel()
+        didEnd?()
     }
     
-    @objc func watchTrailerTap() {
-        viewModel.didTapWatchTrailer()
-    }
+    @objc func watchTrailerTap() {}
     
     func setUpTrailerButton() {
         trailerButton.alpha = 0.5

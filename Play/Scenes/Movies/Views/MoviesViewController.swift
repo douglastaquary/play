@@ -76,13 +76,13 @@ extension MoviesViewController: MoviesViewControllerProtocol {
     
     func displaySelectedMovie(with movie: Movie) {
         let movieDetailViewController = MovieDetailViewController(with: movie)
-        movieDetailViewController.delegate = self
         movieDetailViewController.modalPresentationStyle = .custom
         movieDetailViewController.transitioningDelegate = modalTransitionController
         
         self.navigationController?.present(movieDetailViewController,
                                            animated: true)
     }
+    
 
 }
 
@@ -116,12 +116,6 @@ extension MoviesViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
 }
 
-extension MoviesViewController: MovieDetailViewControllerDelegate {
-    func didEnd(on viewController: MovieDetailViewController) {
-        viewController.dismiss(animated: true, completion: nil)
-    }
-      
-}
 
 
 
