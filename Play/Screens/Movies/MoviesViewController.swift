@@ -46,21 +46,8 @@ extension MoviesViewController {
         
         collectionView.backgroundColor = .black
         collectionView.register(cellType: MovieViewCell.self)
-        
-        loadingAcitivity.startAnimating()
-        
-        viewModel.fetchMovies().asObservable()
-            .subscribe(onNext: {[weak self] _ in
-                guard let me = self else { return }
-                me.loadingAcitivity.isHidden = true
-                me.setupCollectionView(with: me.viewModel.movies)
                 
-            }, onError: { error in
-                self.loadingAcitivity.isHidden = true
-                self.showAlertMessage(title: "Ops, algo deu errado 🤔",
-                                      message: "Não conseguimos carregar os filmes!\nTente novamente.",
-                                      completion: { _ in self.updateMovies() })
-            }).addDisposableTo(disposeBagUI)
+        updateMovies()
     }
 }
 
