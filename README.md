@@ -23,8 +23,16 @@ Esse projeto dois frameworks de Testes:
 
 Esse projeto usa [Bundler](http://bundler.io) e [Cocoapods](https://cocoapods.org). É necessário executar os seguintes comandos:
 
+Caso você não tenha o Bundler instalado, execute:
+
 ```
-bundle
+gem install bundler
+```
+
+Em seguida:
+
+```
+bundle 
 bundle exec pod install
 ```
 
