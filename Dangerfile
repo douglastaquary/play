@@ -6,7 +6,7 @@ end
 warn 'PR is classed as Work in Progress' if (github.pr_title + github.pr_body).include? '[WIP]'
 
 # Warn when there is a big PR
-warn 'Big PR' if git.lines_of_code > 1000
+warn 'Big PR' if git.lines_of_code > 200
 
 warning_important_file_changed '.gitignore'
 warning_important_file_changed '.travis.yml'
@@ -31,6 +31,6 @@ xcode_summary.ignored_files = 'Pods/**'
 
 
 slather.configure('Play.xcodeproj', 'Play', options: { workspace: 'Play.xcworkspace' })
-slather.notify_if_coverage_is_less_than(minimum_coverage: 80, notify_level: :warning)
+slather.notify_if_coverage_is_less_than(minimum_coverage: 45, notify_level: :warning)
 slather.notify_if_modified_file_is_less_than(minimum_coverage: 50, notify_level: :warning)
 slather.show_modified_files_coverage
