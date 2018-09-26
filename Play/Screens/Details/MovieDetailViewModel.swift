@@ -52,11 +52,11 @@ extension MovieDetailViewModel {
         imagePath = "\(ImageBasePath.url)\(movie.posterPath)"
         
         nameMovie = NSAttributedString(string: movie.title,
-            font: UIFont.systemFont(ofSize: 22, weight: UIFontWeightBold),
+            font: UIFont.systemFont(ofSize: 28, weight: UIFontWeightBold),
             color: UIColor.white)
         
         overview = NSAttributedString(string: movie.overview,
-            font: UIFont.systemFont(ofSize: 15),
+            font: UIFont.systemFont(ofSize: 22),
             color: UIColor.lightGray)
         
         
