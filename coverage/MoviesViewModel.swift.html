@@ -7,9 +7,9 @@
 <body>
 <header><div class="row"><a href="index.html"><img src="logo.jpg" alt="Slather logo"></a></div></header><div class="row"><div id="reports">
 <h2 class="cov_title">
-<span>Coverage for "MoviesViewModel.swift" : </span><span class="cov_low">66.67%</span>
+<span>Coverage for "MoviesViewModel.swift" : </span><span class="cov_high">86.67%</span>
 </h2>
-<h4 class="cov_subtitle">(10 of 15 relevant lines covered)</h4>
+<h4 class="cov_subtitle">(13 of 15 relevant lines covered)</h4>
 <h4 class="cov_filepath">Play/Screens/Movies/MoviesViewModel.swift</h4>
 <table class="source_code">
 <tr class="never">
@@ -112,20 +112,20 @@
 <td class="src"><pre><code class="objc">    fileprivate var currentMovies = Variable&lt;Array&lt;Movie&gt;&gt;([])</code></pre></td>
 <td class="coverage"></td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">21</td>
 <td class="src"><pre><code class="objc">    var movies: [Movie] {</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">1x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">22</td>
 <td class="src"><pre><code class="objc">        return currentMovies.value</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">1x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">23</td>
 <td class="src"><pre><code class="objc">    }</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">1x</td>
 </tr>
 <tr class="never">
 <td class="num">24</td>
@@ -147,10 +147,10 @@
 <td class="src"><pre><code class="objc">    func fetchMovies() -&gt; Observable&lt;Void&gt; {</code></pre></td>
 <td class="coverage">7x</td>
 </tr>
-<tr class="covered">
+<tr class="missed">
 <td class="num">28</td>
 <td class="src"><pre><code class="objc">        let endpoint: PlayAPI = PlayAPI.list(apiKey: AppToken().apiKey ?? "", sort_by: "vote_average.asc")</code></pre></td>
-<td class="coverage">7x</td>
+<td class="coverage">!</td>
 </tr>
 <tr class="covered">
 <td class="num">29</td>
@@ -180,17 +180,17 @@
 <tr class="covered">
 <td class="num">34</td>
 <td class="src"><pre><code class="objc">            .map { result in</code></pre></td>
-<td class="coverage">7x</td>
+<td class="coverage">1x</td>
 </tr>
 <tr class="missed">
 <td class="num">35</td>
 <td class="src"><pre><code class="objc">                self.currentMovies.value = result.movies ?? []</code></pre></td>
 <td class="coverage">!</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">36</td>
 <td class="src"><pre><code class="objc">            }.map(void)</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">1x</td>
 </tr>
 <tr class="covered">
 <td class="num">37</td>

@@ -24,7 +24,7 @@ public class MovieDetailView: UIView {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         return label
     }()
     
@@ -89,6 +89,7 @@ public class MovieDetailView: UIView {
         
         let topBar = UIView()
         let grid: CGFloat = 8
+        let stackView = UIStackView()
         
         let bottomLine = UIView()
         bottomLine.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
@@ -133,12 +134,11 @@ public class MovieDetailView: UIView {
         topBar.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
         topBar.heightAnchor.constraint(equalToConstant: grid*8).isActive = true
         
-        posterImageView.heightAnchor.constraint(equalToConstant: 240).isActive = true
+        posterImageView.heightAnchor.constraint(equalToConstant: grid*40).isActive = true
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.heightAnchor.constraint(equalToConstant: 22).isActive = true
-        
-        let stackView = UIStackView()
+        //nameLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
+
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.alignment = .leading
@@ -153,7 +153,7 @@ public class MovieDetailView: UIView {
         stackView.topAnchor.constraint(equalTo: topBar.bottomAnchor).isActive = true
         stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: grid).isActive = true
         stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -grid).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: grid*2).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -grid*4).isActive = true
         
     }
     

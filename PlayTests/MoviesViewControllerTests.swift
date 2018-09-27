@@ -58,7 +58,7 @@ class MoviesViewControllerTests: QuickSpec {
             context("didSelectedMovie") {
                 beforeEach {
                     let navController: UINavigationController = Storyboard.Main.initialViewController()
-                    controller = navController.viewControllers.first as! MoviesViewController
+                    controller = navController.viewControllers.first as? MoviesViewController
                     let _ = controller.view
                     controller.viewDidLoad()
                 }
