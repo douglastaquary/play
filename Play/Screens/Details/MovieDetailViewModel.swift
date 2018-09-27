@@ -46,17 +46,17 @@ extension MovieDetailViewModel {
                                    color: UIColor.orange)
         
         cancelButtonText = NSAttributedString(string: "Cancelar",
-                                              font: UIFont.systemFont(ofSize: 13),
+                                              font: UIFont.systemFont(ofSize: 15),
                                               color: UIColor.lightGray)
         
         imagePath = "\(ImageBasePath.url)\(movie.posterPath)"
         
         nameMovie = NSAttributedString(string: movie.title,
-            font: UIFont.systemFont(ofSize: 28, weight: UIFontWeightBold),
+            font: UIFont.systemFont(ofSize: 22, weight: UIFontWeightBold),
             color: UIColor.white)
         
         overview = NSAttributedString(string: movie.overview,
-            font: UIFont.systemFont(ofSize: 22),
+            font: UIFont.systemFont(ofSize: 18),
             color: UIColor.lightGray)
         
         

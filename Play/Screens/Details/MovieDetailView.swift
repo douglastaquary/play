@@ -137,7 +137,7 @@ public class MovieDetailView: UIView {
         posterImageView.heightAnchor.constraint(equalToConstant: grid*40).isActive = true
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
+        //nameLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor).isActive = true
 
         stackView.axis = .vertical
         stackView.distribution = .fill

@@ -7,9 +7,9 @@
 <body>
 <header><div class="row"><a href="index.html"><img src="logo.jpg" alt="Slather logo"></a></div></header><div class="row"><div id="reports">
 <h2 class="cov_title">
-<span>Coverage for "Movie.swift" : </span><span class="cov_low">36.36%</span>
+<span>Coverage for "Movie.swift" : </span><span class="cov_high">100.00%</span>
 </h2>
-<h4 class="cov_subtitle">(8 of 22 relevant lines covered)</h4>
+<h4 class="cov_subtitle">(22 of 22 relevant lines covered)</h4>
 <h4 class="cov_filepath">Play/Models/Movie.swift</h4>
 <table class="source_code">
 <tr class="never">
@@ -115,117 +115,117 @@
 <tr class="covered">
 <td class="num">21</td>
 <td class="src"><pre><code class="objc">    init(id: Int, mediaType: String, voteCount: Int, title: String, posterPath: String, overview: String) {</code></pre></td>
-<td class="coverage">9x</td>
+<td class="coverage">29x</td>
 </tr>
 <tr class="covered">
 <td class="num">22</td>
 <td class="src"><pre><code class="objc">        self.id = id</code></pre></td>
-<td class="coverage">9x</td>
+<td class="coverage">29x</td>
 </tr>
 <tr class="covered">
 <td class="num">23</td>
 <td class="src"><pre><code class="objc">        self.mediaType = mediaType</code></pre></td>
-<td class="coverage">9x</td>
+<td class="coverage">29x</td>
 </tr>
 <tr class="covered">
 <td class="num">24</td>
 <td class="src"><pre><code class="objc">        self.voteCount = voteCount</code></pre></td>
-<td class="coverage">9x</td>
+<td class="coverage">29x</td>
 </tr>
 <tr class="covered">
 <td class="num">25</td>
 <td class="src"><pre><code class="objc">        self.title = title</code></pre></td>
-<td class="coverage">9x</td>
+<td class="coverage">29x</td>
 </tr>
 <tr class="covered">
 <td class="num">26</td>
 <td class="src"><pre><code class="objc">        self.posterPath = posterPath</code></pre></td>
-<td class="coverage">9x</td>
+<td class="coverage">29x</td>
 </tr>
 <tr class="covered">
 <td class="num">27</td>
 <td class="src"><pre><code class="objc">        self.overview = overview</code></pre></td>
-<td class="coverage">9x</td>
+<td class="coverage">29x</td>
 </tr>
 <tr class="covered">
 <td class="num">28</td>
 <td class="src"><pre><code class="objc">    }</code></pre></td>
-<td class="coverage">9x</td>
+<td class="coverage">29x</td>
 </tr>
 <tr class="never">
 <td class="num">29</td>
 <td class="src"><pre><code class="objc"></code></pre></td>
 <td class="coverage"></td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">30</td>
 <td class="src"><pre><code class="objc">    public static func fromJSON(_ json: [String : Any]) -&gt; Movie {</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">31</td>
 <td class="src"><pre><code class="objc">        let json = JSON(json)</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">32</td>
 <td class="src"><pre><code class="objc"></code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">33</td>
 <td class="src"><pre><code class="objc">        let id = json["id"].intValue</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">34</td>
 <td class="src"><pre><code class="objc">        let mediaType = json["media_type"].stringValue</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">35</td>
 <td class="src"><pre><code class="objc">        let voteCount = json["vote_count"].intValue</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">36</td>
 <td class="src"><pre><code class="objc">        let title = json["title"].stringValue</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">37</td>
 <td class="src"><pre><code class="objc">        let posterPath = json["poster_path"].stringValue</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">38</td>
 <td class="src"><pre><code class="objc">        let overview = json["overview"].stringValue</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">39</td>
 <td class="src"><pre><code class="objc"></code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">40</td>
 <td class="src"><pre><code class="objc">        let movie = Movie(id: id, mediaType: mediaType, voteCount: voteCount, title: title, posterPath: posterPath, overview: overview)</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">41</td>
 <td class="src"><pre><code class="objc"></code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">42</td>
 <td class="src"><pre><code class="objc">        return movie</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
-<tr class="missed">
+<tr class="covered">
 <td class="num">43</td>
 <td class="src"><pre><code class="objc">    }</code></pre></td>
-<td class="coverage">!</td>
+<td class="coverage">20x</td>
 </tr>
 <tr class="never">
 <td class="num">44</td>

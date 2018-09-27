@@ -39,7 +39,7 @@ Runs all the tests on an iPhone
 ```
 fastlane deploy
 ```
-Release a new beta version on Hockey
+Release a new beta version on ITC
 
 This action does the following:
 

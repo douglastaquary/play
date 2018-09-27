@@ -31,6 +31,7 @@ end
   desc "Runs all the tests on an iPhone"
   lane :test do
      scan(scheme: "Play")
+
     slather(
       output_directory: "coverage",
       workspace: "Play.xcworkspace",
@@ -136,75 +137,75 @@ EOS
 end
 
 
-desc "Release a new beta version on ITC"
-desc "This action does the following:"
-desc ""
-desc "- Ensures a clean git status"
-desc "- Increment the build number"
-desc "- Commit and push the version bump"
-desc "Deploy a new version to the App Store"
-lane :appstore do
-  ensure_git_branch
-  ensure_git_status_clean
-  ensure_git_in_sync
+# desc "Release a new beta version on ITC"
+# desc "This action does the following:"
+# desc ""
+# desc "- Ensures a clean git status"
+# desc "- Increment the build number"
+# desc "- Commit and push the version bump"
+# desc "Deploy a new version to the App Store"
+# lane :appstore do
+#   ensure_git_branch
+#   ensure_git_status_clean
+#   ensure_git_in_sync
 
-  cocoapods
+#   cocoapods
 
-  # Ask for a new CFBundleShortVersionString and bump the CFBundleVersion.
-  new_build_number = next_version
-  version = ask("Enter a new version number: ")
-  set_build_number(
-    new_build_number
-  )
-  set_version_number(
-    version
-  )
+#   # Ask for a new CFBundleShortVersionString and bump the CFBundleVersion.
+#   new_build_number = next_version
+#   version = ask("Enter a new version number: ")
+#   set_build_number(
+#     new_build_number
+#   )
+#   set_version_number(
+#     version
+#   )
 
-   # version = options[:version]
-  #raise "You must specify a version in A.B.X format to deploy." if version.nil? || version.scan(/\d+\.\d+\.\d+/).length == 0
+#    # version = options[:version]
+#   #raise "You must specify a version in A.B.X format to deploy." if version.nil? || version.scan(/\d+\.\d+\.\d+/).length == 0
 
-  # Check for the necessary provisioning profile and download it from the developer portal if necessary.
-  sigh(
-    output_path: "/tmp",
-    app_identifier: "br.com.douglast.jobs.Play"
-  )
+#   # Check for the necessary provisioning profile and download it from the developer portal if necessary.
+#   sigh(
+#     output_path: "/tmp",
+#     app_identifier: "br.com.douglast.jobs.Play"
+#   )
 
-  # Use the UDID of the newly created provisioning profile.
-  # The Xcode project is configured to read the provision profile UUID through this environmental variable.
-  # See here for more information: https://github.com/fastlane/fastlane/blob/master/docs/CodeSigning.md#deprecated-using-environment-variables
-  ENV["PROFILE_UDID"] = lane_context[SharedValues::SIGH_UDID]
+#   # Use the UDID of the newly created provisioning profile.
+#   # The Xcode project is configured to read the provision profile UUID through this environmental variable.
+#   # See here for more information: https://github.com/fastlane/fastlane/blob/master/docs/CodeSigning.md#deprecated-using-environment-variables
+#   ENV["PROFILE_UDID"] = lane_context[SharedValues::SIGH_UDID]
 
-  # Generate a name for the xcarchive file.
-  # Also generate the destination path which is inside the Timehop dropbox folder.
-  archive_name = version + " - Play " + Time.now.strftime("%F %H.%M.%S") + ".xcarchive"
-  archive_path = archive_destination(archive_name)
+#   # Generate a name for the xcarchive file.
+#   # Also generate the destination path which is inside the Timehop dropbox folder.
+#   archive_name = version + " - Play " + Time.now.strftime("%F %H.%M.%S") + ".xcarchive"
+#   archive_path = archive_destination(archive_name)
 
-  # Build the app.
-  gym(
-    workspace: "Play.xcworkspace",
-    configuration: "Release",
-    scheme: "Play",
-    clean: false,
-    codesigning_identity: "iPhone Distribution: DOUGLAST ",
-    archive_path: archive_path,
-    use_legacy_build_api: true # There's a bug in the new Xcode 7 API that causes problems. This forces use of the old API.
-  )
+#   # Build the app.
+#   gym(
+#     workspace: "Play.xcworkspace",
+#     configuration: "Release",
+#     scheme: "Play",
+#     clean: false,
+#     codesigning_identity: "iPhone Distribution: DOUGLAST ",
+#     archive_path: archive_path,
+#     use_legacy_build_api: true # There's a bug in the new Xcode 7 API that causes problems. This forces use of the old API.
+#   )
 
-  # Upload the build to iTunes Connect.
-  deliver(
-    force: true,
-    skip_screenshots: true
-  )
+#   # Upload the build to iTunes Connect.
+#   deliver(
+#     force: true,
+#     skip_screenshots: true
+#   )
 
-  clean_build_artifacts
+#   clean_build_artifacts
 
-  commit_version_bump(
-    message: "Version bump " + version + ", " + new_build_number,
-    force: true
-  )
+#   commit_version_bump(
+#     message: "Version bump " + version + ", " + new_build_number,
+#     force: true
+#   )
 
-  push_to_git_remote
-end
+#   push_to_git_remote
+# end
 
   error do |lane, exception|
   if lane == :deploy
